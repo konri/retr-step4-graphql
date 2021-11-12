@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { Column } from './components/Column';
 import { AddColumn } from './components/AddColumn';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { addNewColumn, RetroColumn } from '../../store/retroWorkspace.slice';
+import { addNewColumn, getColumns, RetroColumn, setColumns } from '../../store/retroWorkspace.slice';
+import { useQuery } from '@apollo/client';
+import { GET_ALL_COLUMNS, GetAllColumns } from './graphql/Workspace.graphql';
 
 const WorkspaceContainer = styled.div`
   display: flex;
@@ -13,6 +15,7 @@ const WorkspaceContainer = styled.div`
   height: 100%;
   min-height: 100vh;
   padding: 40px 20px;
+  overflow-x: scroll;
 `;
 
 const Content = styled.div`
@@ -24,6 +27,11 @@ const Content = styled.div`
 export function Workspace() {
   const columns = useSelector((state: RootState) => state.retroWorkspace);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+      dispatch(getColumns())
+  }, [])
+
   return (
     <WorkspaceContainer>
       <Content>

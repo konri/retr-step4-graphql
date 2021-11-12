@@ -2,12 +2,12 @@ import { ColorPicker } from './ColorPicker';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 import { ColumnContainer } from './ColumnContainer';
 import { CommentTextarea } from './CommentTextarea';
 import { Comment } from './Comment';
 import { ColumnTitle } from './ColumnTitle';
 import { addComment, RetroComment, setColumnColor, setColumnTitle } from '../../../store/retroWorkspace.slice';
-import { RootState } from '../../../store/store';
 
 const ColumnHeaderContainer = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const ColumnHeaderContainer = styled.div`
 `;
 
 export interface RetroColumnProps {
-  id: number;
+  id: string;
   title: string;
   comments: Array<RetroComment>;
   color: string;
